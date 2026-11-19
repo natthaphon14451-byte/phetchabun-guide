@@ -1,0 +1,20 @@
+{
+  "name": "website-and-line-oa",
+  "version": "1.0.0",
+  "description": "เว็บไซต์แนะนำการท่องเที่ยวและรวบรวมที่พัก จ.เพชรบูรณ์ สไตล์ **Amazing Thailand (Tourism Authority of Thailand - TAT)** พร้อมระบบสลับ 2 ภาษา (ไทย-อังกฤษ) และการเชื่อมต่อกับ **LINE Official Account (LINE OA)**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@line/bot-sdk": "^11.4.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "localtunnel": "^2.0.2"
+  }
+}

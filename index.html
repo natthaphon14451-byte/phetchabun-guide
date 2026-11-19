@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phetchabun | Travel & Stay Guide (Official)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans (EN) & Prompt (TH) with full weights -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Dedicated language font stacks to prevent font clipping and fallback bugs */
+    html, body {
+      font-family: 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+    html[lang="en"], html[lang="en"] body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+    }
+    .line-green {
+      background-color: #06C755;
+    }
+    .line-green-hover:hover {
+      background-color: #05b34c;
+    }
+    .text-line-green {
+      color: #06C755;
+    }
+    /* Hidden utility for language switching */
+    .lang-hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased selection:bg-emerald-600 selection:text-white">
+
+  <!-- ================= TOP NOTICE / WELCOME BAR ================= -->
+  <div class="bg-stone-900 text-stone-300 text-xs py-2 px-4 border-b border-stone-800">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="lang-th">ยินดีต้อนรับสู่คู่มือท่องเที่ยวและรวมที่พักเพชรบูรณ์</span>
+        <span class="lang-en lang-hidden">Welcome to Official Phetchabun Travel & Stay Portal</span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] text-stone-400">
+        <span>📍 Lower Northern Thailand</span>
+        <span class="hidden sm:inline">⛰️ 1,768m Peak Altitude</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-stone-200/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Brand Logo (Clean & Independent, without Amazing Thailand) -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-700 to-teal-500 text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform duration-300">
+            <i data-lucide="mountain-snow" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-xl font-bold tracking-tight text-stone-950 block leading-none">PHETCHABUN</span>
+            <span class="text-[11px] text-emerald-700 font-medium tracking-wide block mt-1">
+              <span class="lang-th">คู่มือท่องเที่ยว & ที่พัก</span>
+              <span class="lang-en lang-hidden">Travel & Stay Guide</span>
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-stone-600">
+          <a href="#about" class="hover:text-emerald-700 transition-colors">
+            <span class="lang-th">เกี่ยวกับเพชรบูรณ์</span>
+            <span class="lang-en lang-hidden">About</span>
+          </a>
+          <a href="#attractions" class="hover:text-emerald-700 transition-colors">
+            <span class="lang-th">สถานที่ท่องเที่ยว</span>
+            <span class="lang-en lang-hidden">Destinations</span>
+          </a>
+          <a href="#stays" class="hover:text-emerald-700 transition-colors">
+            <span class="lang-th">ที่พักแนะนำ</span>
+            <span class="lang-en lang-hidden">Accommodations</span>
+          </a>
+          <a href="#culture" class="hover:text-emerald-700 transition-colors">
+            <span class="lang-th">อาหาร & ของฝาก</span>
+            <span class="lang-en lang-hidden">Food & Gifts</span>
+          </a>
+        </div>
+
+        <!-- Controls: Language Switcher & LINE OA Concierge -->
+        <div class="flex items-center gap-2.5">
+          
+          <!-- Bilingual Switcher Pill -->
+          <div class="inline-flex p-1 bg-stone-100 rounded-full border border-stone-200 text-xs font-bold text-stone-600">
+            <button onclick="setLanguage('th')" id="lang-btn-th" class="px-3 py-1 rounded-full bg-white text-stone-900 shadow-xs transition">
+              TH
+            </button>
+            <button onclick="setLanguage('en')" id="lang-btn-en" class="px-3 py-1 rounded-full text-stone-500 hover:text-stone-900 transition">
+              EN
+            </button>
+          </div>
+
+          <!-- LINE OA Smart Guide CTA Button -->
+          <a href="https://line.me/R/oaMessage/@816emgzx/?สอบถามข้อมูลท่องเที่ยวเพชรบูรณ์" target="_blank"
+             class="inline-flex items-center gap-2 line-green line-green-hover text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-md shadow-emerald-900/10 transition-all transform hover:-translate-y-0.5">
+            <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+            <span class="lang-th">LINE ไกด์บอท</span>
+            <span class="lang-en lang-hidden">LINE Concierge</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO SECTION (CLEAN & MODERN) ================= -->
+  <header class="relative min-h-[660px] lg:min-h-[700px] flex items-center justify-center text-white overflow-hidden">
+    <!-- Cinematic Foggy Mountain Background -->
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2000&auto=format&fit=crop" 
+         alt="Khao Kho Phetchabun Sea of Mist" 
+         class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/45 to-stone-950/70"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-24">
+      
+      <!-- Top Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold tracking-wider uppercase mb-6 shadow-sm">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i>
+        <span class="lang-th">ดินแดนแห่งขุนเขา ทะเลหมอก และมรดกโลก</span>
+        <span class="lang-en lang-hidden">Land of Mist, Mountains & UNESCO Heritage</span>
+      </div>
+
+      <!-- Main Headline (Consistent modern typography without broken serif) -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+        <span class="block text-amber-200 text-xl sm:text-2xl font-medium tracking-wide mb-2">
+          <span class="lang-th">มนต์เสน่ห์เมืองต้องมนต์</span>
+          <span class="lang-en lang-hidden">Enchanting Province of</span>
+        </span>
+        <span class="bg-gradient-to-r from-white via-stone-100 to-stone-300 bg-clip-text text-transparent">
+          PHETCHABUN
+        </span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-stone-200 max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
+        <span class="lang-th">
+          สัมผัสอากาศหนาวเย็นตลอดทั้งปี วิวทะเลหมอก 360 องศาบนยอดเขาค้อ-ภูทับเบิก และมรดกโลกทางวัฒนธรรมอุทยานประวัติศาสตร์ศรีเทพ
+        </span>
+        <span class="lang-en lang-hidden">
+          Immerse yourself in year-round cool mountain breezes, endless sea of mist at Khao Kho & Phu Thap Boek, and UNESCO World Heritage at Si Thep.
+        </span>
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#attractions" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-xl shadow-emerald-950/30 transition-all flex items-center justify-center gap-2.5">
+          <i data-lucide="compass" class="w-4 h-4"></i>
+          <span class="lang-th">สำรวจไฮไลต์สถานที่</span>
+          <span class="lang-en lang-hidden">Explore Destinations</span>
+        </a>
+        <a href="#stays" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-sm backdrop-blur-md transition-all flex items-center justify-center gap-2.5">
+          <i data-lucide="bed" class="w-4 h-4 text-emerald-300"></i>
+          <span class="lang-th">ที่พักแนะนำ & ติดต่อตรง</span>
+          <span class="lang-en lang-hidden">Curated Stays & Contacts</span>
+        </a>
+      </div>
+
+      <!-- Quick Fact Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto text-left">
+        <div class="bg-stone-900/70 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+          <span class="text-[11px] text-stone-400 uppercase tracking-wider block font-medium">Altitude</span>
+          <span class="text-xl font-bold text-white">1,768 m</span>
+          <span class="text-[11px] text-emerald-300 block mt-0.5">Phu Thap Boek Summit</span>
+        </div>
+        <div class="bg-stone-900/70 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+          <span class="text-[11px] text-stone-400 uppercase tracking-wider block font-medium">Average Climate</span>
+          <span class="text-xl font-bold text-white">18°C – 25°C</span>
+          <span class="text-[11px] text-amber-300 block mt-0.5">Cool Mountain Breeze</span>
+        </div>
+        <div class="bg-stone-900/70 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+          <span class="text-[11px] text-stone-400 uppercase tracking-wider block font-medium">World Heritage</span>
+          <span class="text-xl font-bold text-white">UNESCO 2023</span>
+          <span class="text-[11px] text-emerald-300 block mt-0.5">Si Thep Historical Park</span>
+        </div>
+        <div class="bg-stone-900/70 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+          <span class="text-[11px] text-stone-400 uppercase tracking-wider block font-medium">From Bangkok</span>
+          <span class="text-xl font-bold text-white">~ 5.5 Hours</span>
+          <span class="text-[11px] text-amber-300 block mt-0.5">Scenic Highway Drive</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= ABOUT & 3 SEASONS SECTION ================= -->
+  <section id="about" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+      <div class="lg:col-span-5 space-y-4">
+        <span class="text-xs uppercase font-bold tracking-[0.2em] text-emerald-700">About Phetchabun</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 leading-tight">
+          <span class="lang-th">สวิตเซอร์แลนด์เมืองไทย และอารยธรรมพันปี</span>
+          <span class="lang-en lang-hidden">The Little Switzerland of Thailand & Ancient Heritage</span>
+        </h2>
+        <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+          <span class="lang-th">
+            จังหวัดเพชรบูรณ์ตั้งอยู่บริเวณภาคเหนือตอนล่าง โอบล้อมด้วยแนวทิวเขาเพชรบูรณ์อันสลับซับซ้อน เป็นแหล่งกำเนิดทะเลหมอกที่มีชื่อเสียงที่สุดแห่งหนึ่ง พร้อมความรุ่มรวยทางวัฒนธรรมทวารวดีที่ได้รับการยกย่องเป็นมรดกโลก
+          </span>
+          <span class="lang-en lang-hidden">
+            Nestled in lower northern Thailand surrounded by mountain ranges, Phetchabun is acclaimed for its ethereal sea of mist and rich Dvaravati archaeology, offering travelers unforgettable natural beauty and cultural heritage.
+          </span>
+        </p>
+        <div class="pt-2">
+          <a href="https://line.me/R/oaMessage/@816emgzx/?สอบถามข้อมูลสภาพอากาศเพชรบูรณ์" target="_blank"
+             class="inline-flex items-center gap-2 text-xs font-bold text-emerald-700 hover:text-emerald-800 group">
+            <span class="lang-th">เช็กสภาพอากาศและคำแนะนำการเดินทางกับบอท LINE</span>
+            <span class="lang-en lang-hidden">Check weather & travel advice with LINE Bot</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-5">
+        
+        <!-- Season 1 -->
+        <div class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-xs hover:shadow-md transition">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
+            <i data-lucide="cloud-rain" class="w-5 h-5"></i>
+          </div>
+          <span class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider block mb-1">Jun - Oct</span>
+          <h4 class="text-base font-bold text-stone-900 mb-2">
+            <span class="lang-th">ฤดูฝน (Green Season)</span>
+            <span class="lang-en lang-hidden">Green Season</span>
+          </h4>
+          <p class="text-xs text-stone-500 leading-relaxed">
+            <span class="lang-th">ภูเขาเขียวขจี ทะเลหมอกหลังฝนตกหนานุ่มฟูที่สุด และไร่กะหล่ำปลีภูทับเบิกเขียวเต็มดอย</span>
+            <span class="lang-en lang-hidden">Lush green valleys, dense morning sea of mist after rainfall, and vibrant cabbage terraces.</span>
+          </p>
+        </div>
+
+        <!-- Season 2 -->
+        <div class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-xs hover:shadow-md transition">
+          <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
+            <i data-lucide="snowflake" class="w-5 h-5"></i>
+          </div>
+          <span class="text-[11px] font-bold text-blue-700 uppercase tracking-wider block mb-1">Nov - Feb</span>
+          <h4 class="text-base font-bold text-stone-900 mb-2">
+            <span class="lang-th">ฤดูหนาว (Cool Season)</span>
+            <span class="lang-en lang-hidden">Cool Season</span>
+          </h4>
+          <p class="text-xs text-stone-500 leading-relaxed">
+            <span class="lang-th">ไฮซีซั่น อากาศหนาวเย็นจับใจ ดอกพญาเสือโคร่งเบ่งบาน และนอนกางเต็นท์ชมดาวเต็มฟ้า</span>
+            <span class="lang-en lang-hidden">Peak season with crisp cold weather, wild Himalayan cherry blossoms, and stellar stargazing.</span>
+          </p>
+        </div>
+
+        <!-- Season 3 -->
+        <div class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-xs hover:shadow-md transition">
+          <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
+            <i data-lucide="sun-medium" class="w-5 h-5"></i>
+          </div>
+          <span class="text-[11px] font-bold text-amber-700 uppercase tracking-wider block mb-1">Mar - May</span>
+          <h4 class="text-base font-bold text-stone-900 mb-2">
+            <span class="lang-th">ฤดูร้อน (Warm Season)</span>
+            <span class="lang-en lang-hidden">Warm Season</span>
+          </h4>
+          <p class="text-xs text-stone-500 leading-relaxed">
+            <span class="lang-th">หลบร้อนขึ้นยอดเขา อากาศบนดอยยังคงเย็นสบาย แวะคาเฟ่วิวสูงและชมป่าเปลี่ยนสี</span>
+            <span class="lang-en lang-hidden">Escape heat on mountain peaks, enjoy panoramic cliffside cafes, and explore heritage parks.</span>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= TOP ATTRACTIONS (DESTINATIONS) ================= -->
+  <section id="attractions" class="py-20 bg-stone-100/70 border-y border-stone-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-xs uppercase font-bold tracking-[0.2em] text-emerald-700">Curated Destinations</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 mt-2">
+            <span class="lang-th">แลนด์มาร์กไฮไลต์ห้ามพลาด</span>
+            <span class="lang-en lang-hidden">Must-Visit Landmarks</span>
+          </h2>
+          <p class="text-stone-500 text-sm mt-1">
+            <span class="lang-th">รวบรวมพิกัดท่องเที่ยวที่ได้รับความนิยมสูงสุดในเพชรบูรณ์</span>
+            <span class="lang-en lang-hidden">Experience the defining destinations of Phetchabun</span>
+          </p>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterAttractions('all')" id="abtn-all" class="abtn active px-4 py-2 text-xs font-semibold rounded-full bg-stone-900 text-white shadow-xs transition">
+            <span class="lang-th">ทั้งหมด</span><span class="lang-en lang-hidden">All</span>
+          </button>
+          <button onclick="filterAttractions('nature')" id="abtn-nature" class="abtn px-4 py-2 text-xs font-semibold rounded-full bg-white text-stone-600 hover:bg-stone-200 border border-stone-200 transition">
+            <span class="lang-th">ธรรมชาติ & หมอก</span><span class="lang-en lang-hidden">Nature & Mist</span>
+          </button>
+          <button onclick="filterAttractions('heritage')" id="abtn-heritage" class="abtn px-4 py-2 text-xs font-semibold rounded-full bg-white text-stone-600 hover:bg-stone-200 border border-stone-200 transition">
+            <span class="lang-th">วัด & มรดกโลก</span><span class="lang-en lang-hidden">Heritage & Temples</span>
+          </button>
+          <button onclick="filterAttractions('lifestyle')" id="abtn-lifestyle" class="abtn px-4 py-2 text-xs font-semibold rounded-full bg-white text-stone-600 hover:bg-stone-200 border border-stone-200 transition">
+            <span class="lang-th">คาเฟ่ & ชุมชน</span><span class="lang-en lang-hidden">Cafes & Walking Street</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Destinations Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="attractions-grid">
+
+        <!-- 1: Phu Thap Boek -->
+        <div class="attraction-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col" data-cat="nature">
+          <div class="relative h-60 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop" 
+                 alt="Phu Thap Boek" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-4 left-4 bg-stone-900/80 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              Lom Kao
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-stone-900 mb-2">
+                <span class="lang-th">ยอดภูทับเบิก & ไร่กะหล่ำปลี</span>
+                <span class="lang-en lang-hidden">Phu Thap Boek Summit & Terraces</span>
+              </h3>
+              <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+                <span class="lang-th">จุดชมวิวสูง 1,768 เมตรจากระดับน้ำทะเล สัมผัสถนนลอยฟ้าคดเคี้ยว อากาศหนาวจับใจ และทะเลหมอกรอบทิศ 360 องศา</span>
+                <span class="lang-en lang-hidden">The highest peak at 1,768 meters above sea level, offering panoramic 360-degree sea of mist and iconic hillside cabbage terraces.</span>
+              </p>
+              <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200/60 text-[11px] text-stone-600 mb-5 flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="lang-th"><strong>พิกัด:</strong> หมู่ 14 & 16 ต.วังบาล อ.หล่มเก่า จ.เพชรบูรณ์ 67120</span>
+                <span class="lang-en lang-hidden"><strong>Address:</strong> Wang Ban, Lom Kao District, Phetchabun 67120</span>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-stone-150 flex items-center justify-between">
+              <a href="https://maps.google.com/?q=Phu+Thap+Boek" target="_blank" class="text-xs font-bold text-stone-700 hover:text-emerald-700 flex items-center gap-1.5">
+                <i data-lucide="navigation" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span class="lang-th">เปิด Google Maps</span>
+                <span class="lang-en lang-hidden">View on Maps</span>
+              </a>
+              <a href="https://line.me/R/oaMessage/@816emgzx/?ขอพิกัดภูทับเบิก" target="_blank" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">
+                <span class="lang-th">ขอพิกัดใน LINE</span>
+                <span class="lang-en lang-hidden">Get via LINE</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2: Wat Phra That Pha Sorn Kaew -->
+        <div class="attraction-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col" data-cat="heritage">
+          <div class="relative h-60 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=800&auto=format&fit=crop" 
+                 alt="Wat Pha Sorn Kaew" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-4 left-4 bg-stone-900/80 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              Khao Kho
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-stone-900 mb-2">
+                <span class="lang-th">วัดพระธาตุผาซ่อนแก้ว</span>
+                <span class="lang-en lang-hidden">Wat Phra That Pha Sorn Kaew</span>
+              </h3>
+              <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+                <span class="lang-th">พุทธศิลป์อลังการ พระพุทธรูปขาว 5 พระองค์ซ้อนประดิษฐานบนยอดเขา และเจดีย์ประดับโมเสกแก้วหลากสีกว่า 5 ล้านชิ้น</span>
+                <span class="lang-en lang-hidden">Spectacular sanctuary featuring five tiered white Buddhas and a pagoda adorned with over 5 million colorful mosaic glass tiles.</span>
+              </p>
+              <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200/60 text-[11px] text-stone-600 mb-5 flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="lang-th"><strong>พิกัด:</strong> 95 หมู่ 7 ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ 67280</span>
+                <span class="lang-en lang-hidden"><strong>Address:</strong> 95 Moo 7, Khaem Son, Khao Kho, Phetchabun 67280</span>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-stone-150 flex items-center justify-between">
+              <a href="https://maps.google.com/?q=Wat+Pha+Sorn+Kaew" target="_blank" class="text-xs font-bold text-stone-700 hover:text-emerald-700 flex items-center gap-1.5">
+                <i data-lucide="navigation" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span class="lang-th">เปิด Google Maps</span>
+                <span class="lang-en lang-hidden">View on Maps</span>
+              </a>
+              <a href="https://line.me/R/oaMessage/@816emgzx/?ขอพิกัดวัดผาซ่อนแก้ว" target="_blank" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">
+                <span class="lang-th">ขอพิกัดใน LINE</span>
+                <span class="lang-en lang-hidden">Get via LINE</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3: Si Thep Historical Park (UNESCO) -->
+        <div class="attraction-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col" data-cat="heritage">
+          <div class="relative h-60 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=800&auto=format&fit=crop" 
+                 alt="Si Thep UNESCO Historical Park" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-4 left-4 bg-amber-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+              <i data-lucide="award" class="w-3 h-3"></i> UNESCO World Heritage
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-stone-900 mb-2">
+                <span class="lang-th">อุทยานประวัติศาสตร์ศรีเทพ</span>
+                <span class="lang-en lang-hidden">Si Thep Historical Park</span>
+              </h3>
+              <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+                <span class="lang-th">มรดกโลกทางวัฒนธรรมแห่งใหม่ของไทย ร่องรอยอารยธรรมทวารวดีและขอมโบราณกว่า 1,700 ปี ตื่นตากับเขาคลังนอกและปรางค์สองพี่น้อง</span>
+                <span class="lang-en lang-hidden">Thailand's newest UNESCO World Heritage cultural site, showcasing ancient Dvaravati and Khmer ruins dating back over 1,700 years.</span>
+              </p>
+              <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200/60 text-[11px] text-stone-600 mb-5 flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="lang-th"><strong>พิกัด:</strong> หมู่ 11 ต.ศรีเทพ อ.ศรีเทพ จ.เพชรบูรณ์ 67170</span>
+                <span class="lang-en lang-hidden"><strong>Address:</strong> Moo 11, Si Thep, Si Thep District, Phetchabun 67170</span>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-stone-150 flex items-center justify-between">
+              <a href="https://maps.google.com/?q=Si+Thep+Historical+Park" target="_blank" class="text-xs font-bold text-stone-700 hover:text-emerald-700 flex items-center gap-1.5">
+                <i data-lucide="navigation" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span class="lang-th">เปิด Google Maps</span>
+                <span class="lang-en lang-hidden">View on Maps</span>
+              </a>
+              <a href="https://line.me/R/oaMessage/@816emgzx/?ขอพิกัดเมืองโบราณศรีเทพ" target="_blank" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">
+                <span class="lang-th">ขอพิกัดใน LINE</span>
+                <span class="lang-en lang-hidden">Get via LINE</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4: Khao Takhian Ngo Viewpoint -->
+        <div class="attraction-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col" data-cat="nature">
+          <div class="relative h-60 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800&auto=format&fit=crop" 
+                 alt="Khao Takhian Ngo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-4 left-4 bg-stone-900/80 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              Khao Kho
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-stone-900 mb-2">
+                <span class="lang-th">จุดชมวิวเขาตะเคียนโง๊ะ</span>
+                <span class="lang-en lang-hidden">Khao Takhian Ngo Viewpoint</span>
+              </h3>
+              <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+                <span class="lang-th">จุดชมทะเลหมอก 360 องศาที่สวยที่สุดแห่งหนึ่ง มองเห็นยอดเขาปู่เขาย่ารูปทรงคล้ายภูเขาไฟฟูจิโอบล้อมด้วยหมอกยามเช้า</span>
+                <span class="lang-en lang-hidden">One of the finest 360-degree sunrise viewpoints, revealing the iconic conical peak of Khao Pu-Khao Ya rising above morning fog.</span>
+              </p>
+              <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200/60 text-[11px] text-stone-600 mb-5 flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="lang-th"><strong>พิกัด:</strong> ถนนสาย 2258 ต.หนองแม่นา อ.เขาค้อ จ.เพชรบูรณ์ 67270</span>
+                <span class="lang-en lang-hidden"><strong>Address:</strong> Highway 2258, Nong Mae Na, Khao Kho, Phetchabun 67270</span>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-stone-150 flex items-center justify-between">
+              <a href="https://maps.google.com/?q=Khao+Takhian+Ngo" target="_blank" class="text-xs font-bold text-stone-700 hover:text-emerald-700 flex items-center gap-1.5">
+                <i data-lucide="navigation" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span class="lang-th">เปิด Google Maps</span>
+                <span class="lang-en lang-hidden">View on Maps</span>
+              </a>
+              <a href="https://line.me/R/oaMessage/@816emgzx/?ขอพิกัดเขาตะเคียนโง๊ะ" target="_blank" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">
+                <span class="lang-th">ขอพิกัดใน LINE</span>
+                <span class="lang-en lang-hidden">Get via LINE</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5: Khao Kho Wind Farm -->
+        <div class="attraction-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col" data-cat="nature">
+          <div class="relative h-60 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop" 
+                 alt="Khao Kho Wind Turbine" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-4 left-4 bg-stone-900/80 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              Khao Kho
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-stone-900 mb-2">
+                <span class="lang-th">ทุ่งกังหันลม เขาค้อ</span>
+                <span class="lang-en lang-hidden">Khao Kho Wind Turbine Farm</span>
+              </h3>
+              <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+                <span class="lang-th">กังหันลมยักษ์ 24 ต้นสูงตระหง่านเหนือทุ่งหญ้า สวนดอกไม้เมืองหนาว ชิงช้าชาวเขา และรถรางนำเที่ยวชมวิวพาโนรามา</span>
+                <span class="lang-en lang-hidden">24 towering clean-energy wind turbines standing across highland ridges, featuring vibrant flower fields and traditional swings.</span>
+              </p>
+              <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200/60 text-[11px] text-stone-600 mb-5 flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="lang-th"><strong>พิกัด:</strong> ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์ 67270</span>
+                <span class="lang-en lang-hidden"><strong>Address:</strong> Thung Samo, Khao Kho District, Phetchabun 67270</span>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-stone-150 flex items-center justify-between">
+              <a href="https://maps.google.com/?q=Khao+Kho+Wind+Farm" target="_blank" class="text-xs font-bold text-stone-700 hover:text-emerald-700 flex items-center gap-1.5">
+                <i data-lucide="navigation" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span class="lang-th">เปิด Google Maps</span>
+                <span class="lang-en lang-hidden">View on Maps</span>
+              </a>
+              <a href="https://line.me/R/oaMessage/@816emgzx/?ขอพิกัดทุ่งกังหันลม" target="_blank" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">
+                <span class="lang-th">ขอพิกัดใน LINE</span>
+                <span class="lang-en lang-hidden">Get via LINE</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6: Pino Latte Cafe -->
+        <div class="attraction-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col" data-cat="lifestyle">
+          <div class="relative h-60 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=800&auto=format&fit=crop" 
+                 alt="Pino Latte Cafe" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-4 left-4 bg-purple-700/80 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+              Cafe & View
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-stone-900 mb-2">
+                <span class="lang-th">Pino Latte Restaurant & Cafe</span>
+                <span class="lang-en lang-hidden">Pino Latte Restaurant & Cafe</span>
+              </h3>
+              <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+                <span class="lang-th">คาเฟ่ยอดฮิตบนเนินเขาสูง มองเห็นวิววัดพระธาตุผาซ่อนแก้ว จิบกาแฟอุ่นๆ พร้อมชมทะเลหมอกลอยผ่านตรงหน้า</span>
+                <span class="lang-en lang-hidden">Iconic cliffside cafe perched high above the clouds, providing front-row panoramic vistas of Wat Pha Sorn Kaew.</span>
+              </p>
+              <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200/60 text-[11px] text-stone-600 mb-5 flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="lang-th"><strong>พิกัด:</strong> 232 หมู่ 7 ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ 67280</span>
+                <span class="lang-en lang-hidden"><strong>Address:</strong> 232 Moo 7, Khaem Son, Khao Kho, Phetchabun 67280</span>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-stone-150 flex items-center justify-between">
+              <a href="https://maps.google.com/?q=Pino+Latte+Restaurant+and+Cafe" target="_blank" class="text-xs font-bold text-stone-700 hover:text-emerald-700 flex items-center gap-1.5">
+                <i data-lucide="navigation" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span class="lang-th">เปิด Google Maps</span>
+                <span class="lang-en lang-hidden">View on Maps</span>
+              </a>
+              <a href="https://line.me/R/oaMessage/@816emgzx/?ขอพิกัดร้านพิโนลาเต้" target="_blank" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1">
+                <span class="lang-th">ขอพิกัดใน LINE</span>
+                <span class="lang-en lang-hidden">Get via LINE</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ACCOMMODATIONS (DIRECT CONTACT) ================= -->
+  <section id="stays" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <span class="text-xs uppercase font-bold tracking-[0.2em] text-emerald-700">Where to Stay</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 mt-2">
+          <span class="lang-th">ที่พักแนะนำ & ช่องทางติดต่อตรง</span>
+          <span class="lang-en lang-hidden">Curated Stays & Direct Contacts</span>
+        </h2>
+        <p class="text-stone-500 text-sm mt-1">
+          <span class="lang-th">ติดต่อจองกับเจ้าของที่พักโดยตรงผ่านเบอร์โทรศัพท์, LINE ID และเปิดพิกัดแผนที่นำทางได้ทันที</span>
+          <span class="lang-en lang-hidden">Contact verified boutique stays directly via phone, official LINE, and Google Maps location.</span>
+        </p>
+      </div>
+
+      <!-- Zone Filter Buttons -->
+      <div class="flex flex-wrap gap-2">
+        <button onclick="filterStays('all')" id="sbtn-all" class="sbtn active px-4 py-2 text-xs font-semibold rounded-full bg-stone-900 text-white shadow-xs transition">
+          <span class="lang-th">ทั้งหมด</span><span class="lang-en lang-hidden">All Zones</span>
+        </button>
+        <button onclick="filterStays('khaokho')" id="sbtn-khaokho" class="sbtn px-4 py-2 text-xs font-semibold rounded-full bg-white text-stone-600 hover:bg-stone-200 border border-stone-200 transition">
+          <span class="lang-th">โซนเขาค้อ</span><span class="lang-en lang-hidden">Khao Kho</span>
+        </button>
+        <button onclick="filterStays('phuthapbuek')" id="sbtn-phuthapbuek" class="sbtn px-4 py-2 text-xs font-semibold rounded-full bg-white text-stone-600 hover:bg-stone-200 border border-stone-200 transition">
+          <span class="lang-th">โซนภูทับเบิก</span><span class="lang-en lang-hidden">Phu Thap Boek</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Accommodations Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="stays-grid">
+
+      <!-- Stay 1: Khaokho Baybay -->
+      <div class="stay-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-lg transition flex flex-col justify-between" data-zone="khaokho">
+        <div>
+          <div class="relative h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop" 
+                 alt="Khaokho Baybay" class="w-full h-full object-cover">
+            <span class="absolute top-3.5 left-3.5 bg-emerald-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+              Khao Kho
+            </span>
+            <span class="absolute bottom-3.5 right-3.5 bg-stone-900/85 backdrop-blur-md text-emerald-300 text-[11px] font-bold px-2.5 py-1 rounded-lg">
+              <span class="lang-th">วิวทะเลหมอกอ่างรัตนัย</span>
+              <span class="lang-en lang-hidden">Rattanai Lake View</span>
+            </span>
+          </div>
+
+          <div class="p-5">
+            <div class="flex items-center gap-1 text-xs text-amber-500 mb-1">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <span class="text-stone-400 text-[11px] ml-1">4.9 / 5.0</span>
+            </div>
+            <h3 class="text-base font-bold text-stone-900 mb-1">เขาค้อ เบย์เบย์ (Khaokho Baybay)</h3>
+            <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+              <span class="lang-th">รีสอร์ทสไตล์โมเดิร์นลอฟท์ วิวทะเลหมอกยามเช้า มีระเบียงส่วนตัวและเซ็ตหมูกระทะยามเย็น</span>
+              <span class="lang-en lang-hidden">Modern loft style resort overlooking misty lake basin with private balcony and barbecue sets.</span>
+            </p>
+
+            <!-- Contact Box -->
+            <div class="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/60 space-y-2 text-xs text-stone-600 mb-4">
+              <div class="flex items-center gap-2">
+                <i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                <a href="tel:0882733959" class="font-bold text-stone-900 hover:text-emerald-700">088-273-3959</a>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="message-square" class="w-3.5 h-3.5 text-line-green shrink-0"></i>
+                <span>LINE ID: <strong class="text-stone-900">@khaokhobaybay</strong></span>
+              </div>
+              <div class="flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="text-[11px] leading-tight">58 หมู่ 2 ต.ทุ่งสมอ อ.เขาค้อ จ.เพชรบูรณ์ 67270</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-5 pt-0 grid grid-cols-2 gap-2">
+          <a href="https://maps.google.com/?q=Khaokho+Baybay" target="_blank" 
+             class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-stone-200 hover:bg-stone-100 text-stone-700 text-xs font-bold transition">
+            <i data-lucide="navigation" class="w-3 h-3 text-blue-600"></i>
+            <span>Google Maps</span>
+          </a>
+          <a href="https://line.me/R/oaMessage/@816emgzx/?สนใจสอบถามห้องพักเขาค้อเบย์เบย์" target="_blank"
+             class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl line-green line-green-hover text-white text-xs font-bold shadow-xs transition">
+            <i data-lucide="message-circle" class="w-3 h-3"></i>
+            <span>LINE Bot</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Stay 2: The Blue Sky Resort -->
+      <div class="stay-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-lg transition flex flex-col justify-between" data-zone="khaokho">
+        <div>
+          <div class="relative h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1587061949409-02df41d5e562?q=80&w=800&auto=format&fit=crop" 
+                 alt="The Blue Sky Resort" class="w-full h-full object-cover">
+            <span class="absolute top-3.5 left-3.5 bg-emerald-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+              Khao Kho
+            </span>
+            <span class="absolute bottom-3.5 right-3.5 bg-stone-900/85 backdrop-blur-md text-emerald-300 text-[11px] font-bold px-2.5 py-1 rounded-lg">
+              <span class="lang-th">สวนสไตล์อังกฤษ</span>
+              <span class="lang-en lang-hidden">English Garden</span>
+            </span>
+          </div>
+
+          <div class="p-5">
+            <div class="flex items-center gap-1 text-xs text-amber-500 mb-1">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <span class="text-stone-400 text-[11px] ml-1">4.8 / 5.0</span>
+            </div>
+            <h3 class="text-base font-bold text-stone-900 mb-1">เดอะ บลูสกาย รีสอร์ท เขาค้อ</h3>
+            <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+              <span class="lang-th">รีสอร์ทสไตล์ English Countryside ท่ามกลางสวนดอกไม้เมืองหนาวและขุนเขา ใกล้วัดผาซ่อนแก้ว</span>
+              <span class="lang-en lang-hidden">Fairytale English country boutique resort surrounded by European flower gardens near Wat Pha Sorn Kaew.</span>
+            </p>
+
+            <!-- Contact Box -->
+            <div class="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/60 space-y-2 text-xs text-stone-600 mb-4">
+              <div class="flex items-center gap-2">
+                <i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                <a href="tel:0813550500" class="font-bold text-stone-900 hover:text-emerald-700">081-355-0500</a>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="message-square" class="w-3.5 h-3.5 text-line-green shrink-0"></i>
+                <span>LINE ID: <strong class="text-stone-900">@theblueskyresort</strong></span>
+              </div>
+              <div class="flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="text-[11px] leading-tight">96 หมู่ 5 ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ 67280</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-5 pt-0 grid grid-cols-2 gap-2">
+          <a href="https://maps.google.com/?q=The+Blue+Sky+Resort+Khao+Kho" target="_blank" 
+             class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-stone-200 hover:bg-stone-100 text-stone-700 text-xs font-bold transition">
+            <i data-lucide="navigation" class="w-3 h-3 text-blue-600"></i>
+            <span>Google Maps</span>
+          </a>
+          <a href="https://line.me/R/oaMessage/@816emgzx/?สนใจสอบถามห้องพักเดอะบลูสกายเขาค้อ" target="_blank"
+             class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl line-green line-green-hover text-white text-xs font-bold shadow-xs transition">
+            <i data-lucide="message-circle" class="w-3 h-3"></i>
+            <span>LINE Bot</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Stay 3: Wimanmok Phu Thap Boek -->
+      <div class="stay-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-lg transition flex flex-col justify-between" data-zone="phuthapbuek">
+        <div>
+          <div class="relative h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?q=80&w=800&auto=format&fit=crop" 
+                 alt="Wimanmok Phu Thap Boek" class="w-full h-full object-cover">
+            <span class="absolute top-3.5 left-3.5 bg-blue-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+              Phu Thap Boek
+            </span>
+            <span class="absolute bottom-3.5 right-3.5 bg-stone-900/85 backdrop-blur-md text-emerald-300 text-[11px] font-bold px-2.5 py-1 rounded-lg">
+              <span class="lang-th">วิวหน้าผาสูง</span>
+              <span class="lang-en lang-hidden">Cliffside Mist</span>
+            </span>
+          </div>
+
+          <div class="p-5">
+            <div class="flex items-center gap-1 text-xs text-amber-500 mb-1">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <span class="text-stone-400 text-[11px] ml-1">4.9 / 5.0</span>
+            </div>
+            <h3 class="text-base font-bold text-stone-900 mb-1">วิมานหมอก ภูทับเบิก</h3>
+            <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+              <span class="lang-th">บ้านพักและเต็นท์โดมริมหน้าผาบนยอดดอย ตื่นมาเปิดประตูกอดทะเลหมอกฟูหน้าห้องพักทันที</span>
+              <span class="lang-en lang-hidden">Highland dome tents and cliffside villas offering immediate front-door morning mist encounters.</span>
+            </p>
+
+            <!-- Contact Box -->
+            <div class="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/60 space-y-2 text-xs text-stone-600 mb-4">
+              <div class="flex items-center gap-2">
+                <i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                <a href="tel:0888849990" class="font-bold text-stone-900 hover:text-emerald-700">088-884-9990</a>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="message-square" class="w-3.5 h-3.5 text-line-green shrink-0"></i>
+                <span>LINE ID: <strong class="text-stone-900">@wimanmok_tb</strong></span>
+              </div>
+              <div class="flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="text-[11px] leading-tight">หมู่ 16 ต.วังบาล อ.หล่มเก่า จ.เพชรบูรณ์ 67120</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-5 pt-0 grid grid-cols-2 gap-2">
+          <a href="https://maps.google.com/?q=Wimanmok+Phu+Thap+Boek" target="_blank" 
+             class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-stone-200 hover:bg-stone-100 text-stone-700 text-xs font-bold transition">
+            <i data-lucide="navigation" class="w-3 h-3 text-blue-600"></i>
+            <span>Google Maps</span>
+          </a>
+          <a href="https://line.me/R/oaMessage/@816emgzx/?สนใจสอบถามห้องพักวิมานหมอกภูทับเบิก" target="_blank"
+             class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl line-green line-green-hover text-white text-xs font-bold shadow-xs transition">
+            <i data-lucide="message-circle" class="w-3 h-3"></i>
+            <span>LINE Bot</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Stay 4: Memory Phu Thap Boek -->
+      <div class="stay-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-lg transition flex flex-col justify-between" data-zone="phuthapbuek">
+        <div>
+          <div class="relative h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=800&auto=format&fit=crop" 
+                 alt="Memory Phu Thap Boek" class="w-full h-full object-cover">
+            <span class="absolute top-3.5 left-3.5 bg-blue-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+              Phu Thap Boek
+            </span>
+            <span class="absolute bottom-3.5 right-3.5 bg-stone-900/85 backdrop-blur-md text-emerald-300 text-[11px] font-bold px-2.5 py-1 rounded-lg">
+              <span class="lang-th">วิวไร่กะหล่ำปลี</span>
+              <span class="lang-en lang-hidden">Terrace Farm View</span>
+            </span>
+          </div>
+
+          <div class="p-5">
+            <div class="flex items-center gap-1 text-xs text-amber-500 mb-1">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+              <span class="text-stone-400 text-[11px] ml-1">4.8 / 5.0</span>
+            </div>
+            <h3 class="text-base font-bold text-stone-900 mb-1">เมมโมรี่ ภูทับเบิก (Memory)</h3>
+            <p class="text-stone-500 text-xs mb-4 leading-relaxed">
+              <span class="lang-th">ที่พักวิวยอดดอยเปิดโล่ง สัมผัสอากาศหนาวเย็นตลอดทั้งปี นอนชมดาวระยิบระยับยามค่ำคืน</span>
+              <span class="lang-en lang-hidden">High-elevation mountain stay with unobstructed skyline views, cool breezes, and brilliant night stars.</span>
+            </p>
+
+            <!-- Contact Box -->
+            <div class="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/60 space-y-2 text-xs text-stone-600 mb-4">
+              <div class="flex items-center gap-2">
+                <i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                <a href="tel:0819876543" class="font-bold text-stone-900 hover:text-emerald-700">081-987-6543</a>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="message-square" class="w-3.5 h-3.5 text-line-green shrink-0"></i>
+                <span>LINE ID: <strong class="text-stone-900">@memory_tb</strong></span>
+              </div>
+              <div class="flex items-start gap-2">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5"></i>
+                <span class="text-[11px] leading-tight">หมู่ 14 ต.วังบาล อ.หล่มเก่า จ.เพชรบูรณ์ 67120</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-5 pt-0 grid grid-cols-2 gap-2">
+          <a href="https://maps.google.com/?q=Memory+Phu+Thap+Boek" target="_blank" 
+             class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-stone-200 hover:bg-stone-100 text-stone-700 text-xs font-bold transition">
+            <i data-lucide="navigation" class="w-3 h-3 text-blue-600"></i>
+            <span>Google Maps</span>
+          </a>
+          <a href="https://line.me/R/oaMessage/@816emgzx/?สนใจสอบถามห้องพักเมมโมรี่ภูทับเบิก" target="_blank"
+             class="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl line-green line-green-hover text-white text-xs font-bold shadow-xs transition">
+            <i data-lucide="message-circle" class="w-3 h-3"></i>
+            <span>LINE Bot</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= TASTE & CULTURE ================= -->
+  <section id="culture" class="py-20 bg-stone-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-2xl mb-12">
+        <span class="text-xs uppercase font-bold tracking-[0.2em] text-amber-400">Authentic Flavors</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">
+          <span class="lang-th">รสสัมผัสและของฝากเลื่องชื่อ</span>
+          <span class="lang-en lang-hidden">Culinary Delicacies & Heritage Gifts</span>
+        </h2>
+        <p class="text-stone-400 text-sm mt-1">
+          <span class="lang-th">เสน่ห์ปลายจวักแห่งเมืองเพชรบูรณ์ที่ต้องลิ้มลองสักครั้งเมื่อมาเยือน</span>
+          <span class="lang-en lang-hidden">Signature tastes and prized local products of Phetchabun</span>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Food 1 -->
+        <div class="bg-stone-800/80 rounded-3xl p-6 border border-stone-700">
+          <div class="h-44 rounded-2xl overflow-hidden mb-5">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop" 
+                 alt="Wichian Buri Grilled Chicken" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider block mb-1">Signature Dish</span>
+          <h4 class="text-lg font-bold text-white mb-2">
+            <span class="lang-th">ไก่ย่างวิเชียรบุรีแท้</span>
+            <span class="lang-en lang-hidden">Wichian Buri Grilled Chicken</span>
+          </h4>
+          <p class="text-stone-400 text-xs leading-relaxed">
+            <span class="lang-th">ไก่ย่างหนังกรอบเนื้อนุ่ม หมักด้วยสมุนไพรสูตรพิเศษ เสิร์ฟพร้อมน้ำจิ้มมะขามรสแซ่บกลมกล่อม</span>
+            <span class="lang-en lang-hidden">World-famous crisp-skinned, tender marinated chicken roasted with aromatic herbs and tangy tamarind dipping sauce.</span>
+          </p>
+        </div>
+
+        <!-- Food 2 -->
+        <div class="bg-stone-800/80 rounded-3xl p-6 border border-stone-700">
+          <div class="h-44 rounded-2xl overflow-hidden mb-5">
+            <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=800&auto=format&fit=crop" 
+                 alt="Sweet Tamarind" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider block mb-1">GI Protected Gift</span>
+          <h4 class="text-lg font-bold text-white mb-2">
+            <span class="lang-th">มะขามหวานเพชรบูรณ์</span>
+            <span class="lang-en lang-hidden">Phetchabun Sweet Tamarind</span>
+          </h4>
+          <p class="text-stone-400 text-xs leading-relaxed">
+            <span class="lang-th">ของฝากอันดับหนึ่ง พันธุ์สีทองและพันธุ์ประกายทอง เนื้อฉ่ำแน่น หวานสนิท และแปรรูปเป็นผลิตภัณฑ์ชั้นเลิศ</span>
+            <span class="lang-en lang-hidden">Prized sweet tamarind known nationwide for rich succulent flesh, golden variety, and sweet natural flavor.</span>
+          </p>
+        </div>
+
+        <!-- Food 3 -->
+        <div class="bg-stone-800/80 rounded-3xl p-6 border border-stone-700">
+          <div class="h-44 rounded-2xl overflow-hidden mb-5">
+            <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=800&auto=format&fit=crop" 
+                 alt="Lom Kao Fresh Rice Noodles" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider block mb-1">Local Craft</span>
+          <h4 class="text-lg font-bold text-white mb-2">
+            <span class="lang-th">ขนมจีนเส้นสดหล่มเก่า</span>
+            <span class="lang-en lang-hidden">Lom Kao Fresh Rice Noodles</span>
+          </h4>
+          <p class="text-stone-400 text-xs leading-relaxed">
+            <span class="lang-th">เส้นแป้งหมักบีบสดใหม่ทุกจาน ทานคู่น้ำยา 3 หม้อ (น้ำยากะทิ, น้ำยาป่า, น้ำพริก) แนมผักสดพื้นบ้านไม่อั้น</span>
+            <span class="lang-en lang-hidden">Freshly hand-pressed rice noodles served in colorful nests alongside three traditional curry pots and organic herbs.</span>
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= LINE OA SMART GUIDE BANNER ================= -->
+  <section class="py-20 bg-gradient-to-tr from-emerald-900 via-stone-900 to-stone-950 text-white relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-3xl line-green mb-6 shadow-xl shadow-emerald-950/50">
+        <i data-lucide="bot" class="w-8 h-8 text-white"></i>
+      </div>
+
+      <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">
+        <span class="lang-th">ให้ LINE OA เป็น "ผู้ช่วยท่องเที่ยวส่วนตัว" ตลอดทริป</span>
+        <span class="lang-en lang-hidden">Your 24/7 Personal Travel Concierge on LINE</span>
+      </h2>
+
+      <p class="text-stone-300 text-sm sm:text-base max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
+        <span class="lang-th">
+          สอบถามพิกัด GPS นำทาง เช็กโอกาสเกิดทะเลหมอก และรับข้อมูลติดต่อที่พักได้ทันทีผ่านแชท LINE สะดวก รวดเร็ว ไม่ต้องติดตั้งแอปพลิเคชันเพิ่ม
+        </span>
+        <span class="lang-en lang-hidden">
+          Request instant GPS navigation cards, check real-time mountain fog conditions, and get verified hotel contacts via LINE without installing any new apps.
+        </span>
+      </p>
+
+      <a href="https://line.me/R/oaMessage/@816emgzx/?สอบถามข้อมูลท่องเที่ยวเพชรบูรณ์" target="_blank"
+         class="inline-flex items-center gap-3 line-green line-green-hover text-white font-bold px-8 py-4 rounded-full text-sm shadow-xl shadow-emerald-950/40 transition-all transform hover:scale-105">
+        <i data-lucide="message-circle" class="w-5 h-5 fill-white"></i>
+        <span class="lang-th">แอด LINE OA ไกด์บอท ตอนนี้</span>
+        <span class="lang-en lang-hidden">Add LINE Concierge Bot Now</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-stone-950 text-stone-500 text-xs py-14 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-10 border-b border-stone-800/80">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-stone-900 text-emerald-400 flex items-center justify-center border border-stone-800">
+            <i data-lucide="mountain-snow" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-stone-300 font-bold text-sm tracking-wide block">PHETCHABUN GUIDE</span>
+            <span class="text-[11px] text-stone-500">Travel & Stay Official Portal</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-6 text-stone-400 font-medium">
+          <a href="#about" class="hover:text-white transition">About</a>
+          <a href="#attractions" class="hover:text-white transition">Destinations</a>
+          <a href="#stays" class="hover:text-white transition">Accommodations</a>
+          <a href="#culture" class="hover:text-white transition">Food & Gifts</a>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-stone-600 text-[11px]">
+        <p>© 2026 Phetchabun Travel & Stay Guide. All rights reserved.</p>
+        <p>Supports English & Thai | Seamless LINE Official Account Integration • <a href="/admin" class="hover:text-stone-400 text-stone-700 transition" title="ระบบจัดการหลังบ้าน">Admin</a></p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= FLOATING LINE BUTTON ================= -->
+  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <div class="hidden sm:flex items-center bg-white text-stone-900 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-xl border border-stone-200/80 animate-bounce">
+      <span class="lang-th">สอบถามที่พัก / พิกัดเที่ยว</span>
+      <span class="lang-en lang-hidden">Travel & Stay Concierge</span>
+    </div>
+    <a href="https://line.me/R/oaMessage/@816emgzx/?สอบถามข้อมูลท่องเที่ยวเพชรบูรณ์" target="_blank"
+       title="LINE Concierge"
+       class="w-14 h-14 rounded-full line-green line-green-hover text-white shadow-2xl shadow-emerald-500/40 flex items-center justify-center transition-transform hover:scale-110 active:scale-95">
+      <i data-lucide="message-circle" class="w-8 h-8 fill-white"></i>
+    </a>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Bilingual Toggle Logic (Instant, no page reload)
+    function setLanguage(lang) {
+      const thElements = document.querySelectorAll('.lang-th');
+      const enElements = document.querySelectorAll('.lang-en');
+      const btnTh = document.getElementById('lang-btn-th');
+      const btnEn = document.getElementById('lang-btn-en');
+
+      if (lang === 'en') {
+        thElements.forEach(el => el.classList.add('lang-hidden'));
+        enElements.forEach(el => el.classList.remove('lang-hidden'));
+        btnEn.classList.add('bg-white', 'text-stone-900', 'shadow-xs');
+        btnEn.classList.remove('text-stone-500');
+        btnTh.classList.remove('bg-white', 'text-stone-900', 'shadow-xs');
+        btnTh.classList.add('text-stone-500');
+        document.documentElement.lang = 'en';
+      } else {
+        enElements.forEach(el => el.classList.add('lang-hidden'));
+        thElements.forEach(el => el.classList.remove('lang-hidden'));
+        btnTh.classList.add('bg-white', 'text-stone-900', 'shadow-xs');
+        btnTh.classList.remove('text-stone-500');
+        btnEn.classList.remove('bg-white', 'text-stone-900', 'shadow-xs');
+        btnEn.classList.add('text-stone-500');
+        document.documentElement.lang = 'th';
+      }
+      localStorage.setItem('preferred_lang', lang);
+    }
+
+    // Auto load stored language if available
+    const savedLang = localStorage.getItem('preferred_lang') || 'th';
+    setLanguage(savedLang);
+
+    // Tab Filter Logic for Attractions
+    function filterAttractions(category) {
+      const cards = document.querySelectorAll('.attraction-card');
+      const buttons = document.querySelectorAll('.abtn');
+
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-stone-900', 'text-white');
+        btn.classList.add('bg-white', 'text-stone-600');
+      });
+
+      const activeBtn = document.getElementById(`abtn-${category}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-stone-900', 'text-white');
+        activeBtn.classList.remove('bg-white', 'text-stone-600');
+      }
+
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-cat') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Tab Filter Logic for Accommodations
+    function filterStays(zone) {
+      const cards = document.querySelectorAll('.stay-card');
+      const buttons = document.querySelectorAll('.sbtn');
+
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-stone-900', 'text-white');
+        btn.classList.add('bg-white', 'text-stone-600');
+      });
+
+      const activeBtn = document.getElementById(`sbtn-${zone}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-stone-900', 'text-white');
+        activeBtn.classList.remove('bg-white', 'text-stone-600');
+      }
+
+      cards.forEach(card => {
+        if (zone === 'all' || card.getAttribute('data-zone') === zone) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Dynamic Database Loader for Stays
+    async function loadDynamicStays() {
+      try {
+        const res = await fetch('/api/places?type=stay');
+        if (!res.ok) return;
+        const result = await res.json();
+        if (!result.success || !result.data || result.data.length === 0) return;
+
+        const container = document.getElementById('stays-grid');
+        if (!container) return;
+
+        container.innerHTML = result.data.map(stay => {
+          const cleanPhone = (stay.phone || '').replace(/[^0-9]/g, '');
+          const zoneTag = stay.zone === 'khaokho' ? 'Khao Kho' : (stay.zone === 'phuthapbuek' ? 'Phu Thap Boek' : 'Phetchabun');
+          return `
+            <div class="stay-card bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs hover:shadow-lg transition flex flex-col justify-between" data-zone="${stay.zone}">
+              <div>
+                <div class="relative h-56 overflow-hidden">
+                  <img src="${stay.image_url}" alt="${stay.name_th}" class="w-full h-full object-cover">
+                  <span class="absolute top-3.5 left-3.5 bg-emerald-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                    ${zoneTag}
+                  </span>
+                  <span class="absolute bottom-3.5 right-3.5 bg-stone-900/85 backdrop-blur-md text-emerald-300 text-[11px] font-bold px-2.5 py-1 rounded-lg">
+                    ${stay.price}
+                  </span>
+                </div>
+
+                <div class="p-5">
+                  <div class="flex items-center gap-1 text-xs text-amber-500 mb-1">
+                    <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+                    <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+                    <span class="text-stone-400 text-[11px] ml-1">${stay.rating || '4.9'} / 5.0</span>
+                  </div>
+                  <h3 class="text-base font-bold text-stone-900 mb-1">${stay.name_th}</h3>
+                  <p class="text-stone-500 text-xs mb-4 leading-relaxed line-clamp-2">
+                    ${stay.description_th}
+                  </p>
+
+                  <!-- Contact Box -->
+                  <div class="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/60 space-y-2 text-xs text-stone-600 mb-4">
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                      <a href="tel:${cleanPhone}" class="font-bold text-stone-900 hover:text-emerald-700">${stay.phone || '-'}</a>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="message-square" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+                      <span>LINE ID: <strong class="text-stone-900">${stay.line_id || '-'}</strong></span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                      <i data-lucide="map-pin" class="w-3.5 h-3.5 text-stone-400 shrink-0 mt-0.5"></i>
+                      <span class="line-clamp-1 text-[11px] text-stone-500">${stay.address_th || '-'}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="p-5 pt-0 grid grid-cols-2 gap-2">
+                <a href="tel:${cleanPhone}" class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-stone-900 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl transition">
+                  <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+                  <span>โทรจองตรง</span>
+                </a>
+                <a href="${stay.map_url || '#'}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-white border border-stone-200 hover:bg-stone-100 text-stone-700 text-xs font-semibold rounded-xl transition">
+                  <i data-lucide="navigation" class="w-3.5 h-3.5 text-emerald-600"></i>
+                  <span>นำทาง</span>
+                </a>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      } catch (err) {
+        console.log('Serving local fallback stays');
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadDynamicStays);
+  </script>
+</body>
+</html>

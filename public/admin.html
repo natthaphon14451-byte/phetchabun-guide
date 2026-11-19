@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | ระบบจัดการหลังบ้านที่พัก & ที่เที่ยว</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Prompt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Prompt', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen">
+
+  <!-- ================= 1. ADMIN LOGIN SCREEN ================= -->
+  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950">
+    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-200/80 p-8 sm:p-10">
+      
+      <!-- Icon & Header -->
+      <div class="text-center mb-8">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-xl shadow-emerald-950/30">
+          <i data-lucide="shield-lock" class="w-8 h-8"></i>
+        </div>
+        <h2 class="text-2xl font-black text-slate-900 tracking-tight">Admin CMS Login</h2>
+        <p class="text-xs text-slate-500 mt-1.5">ระบบจัดการหลังบ้าน Phetchabun Travel & LINE OA</p>
+      </div>
+
+      <!-- Error Alert -->
+      <div id="login-error" class="hidden mb-6 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-red-600 text-xs font-semibold flex items-center gap-2.5">
+        <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
+        <span id="login-error-msg">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</span>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">ชื่อผู้ใช้งาน (Username)</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+              <i data-lucide="user" class="w-4 h-4"></i>
+            </span>
+            <input type="text" id="login-username" value="admin" required placeholder="admin"
+                   class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">รหัสผ่าน (Password)</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+              <i data-lucide="key-round" class="w-4 h-4"></i>
+            </span>
+            <input type="password" id="login-password" placeholder="ใส่รหัสผ่านเข้าหลังบ้าน" required
+                   class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition">
+          </div>
+        </div>
+
+        <button type="submit" id="login-btn"
+                class="w-full mt-2 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-[0.99] text-white font-bold text-sm shadow-lg shadow-emerald-900/20 transition flex items-center justify-center gap-2">
+          <i data-lucide="log-in" class="w-4 h-4"></i>
+          <span>เข้าสู่ระบบ</span>
+        </button>
+      </form>
+
+      <div class="mt-8 pt-6 border-t border-slate-100 text-center">
+        <a href="/" class="text-xs text-slate-500 hover:text-emerald-700 font-semibold transition inline-flex items-center gap-1.5">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>กลับสู่หน้าเว็บไซต์หลัก</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= 2. ADMIN DASHBOARD APP (PROTECTED) ================= -->
+  <div id="admin-app" class="hidden min-h-screen flex flex-col">
+
+    <!-- Top Admin Bar -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold">
+            <i data-lucide="database" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h1 class="text-base font-bold leading-tight">Phetchabun Backend CMS</h1>
+            <p class="text-[11px] text-emerald-400 font-medium">ระบบจัดการข้อมูลเว็บไซต์ & LINE OA Real-time</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <a href="/" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>ดูหน้าเว็บหลัก</span>
+          </a>
+          <button onclick="openModal()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow transition">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>เพิ่มข้อมูลใหม่</span>
+          </button>
+          <button onclick="handleLogout()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-950/40 hover:bg-red-900/60 text-xs font-semibold text-red-300 border border-red-800/40 transition" title="ออกจากระบบ">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>ออกจากระบบ</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+    <!-- Sync Notice Banner -->
+    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+          <i data-lucide="refresh-cw" class="w-5 h-5 animate-spin"></i>
+        </div>
+        <div>
+          <h4 class="text-xs font-bold text-emerald-950">เชื่อมต่อสองทาง (Two-Way Synchronization)</h4>
+          <p class="text-xs text-emerald-700 mt-0.5">
+            เมื่อคุณเพิ่ม แก้ไข หรือลบข้อมูลที่พักในหน้านี้ <strong>ทั้งหน้าเว็บไซต์และแชทบอท LINE OA (@816emgzx) จะอัปเดตข้อมูลทันที</strong> โดยไม่ต้องรีสตาร์ตเซิร์ฟเวอร์
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-200 text-emerald-800 text-xs font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+          LINE Webhook Active
+        </span>
+      </div>
+    </div>
+
+    <!-- Filter & Stats Bar -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+      <div class="flex items-center gap-2">
+        <button onclick="filterTable('all')" id="tab-all" class="tab-btn px-4 py-1.5 rounded-full text-xs font-bold bg-slate-900 text-white shadow-xs">
+          ทั้งหมด (<span id="count-all">0</span>)
+        </button>
+        <button onclick="filterTable('stay')" id="tab-stay" class="tab-btn px-4 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-200 border border-slate-200">
+          🏡 ที่พัก (<span id="count-stay">0</span>)
+        </button>
+        <button onclick="filterTable('attraction')" id="tab-attraction" class="tab-btn px-4 py-1.5 rounded-full text-xs font-bold bg-white text-slate-600 hover:bg-slate-200 border border-slate-200">
+          🏔️ สถานที่ท่องเที่ยว (<span id="count-attraction">0</span>)
+        </button>
+      </div>
+
+      <!-- Quick Search -->
+      <div class="relative w-full sm:w-72">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+        <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="ค้นหาชื่อ, โซน, คีย์เวิร์ด..." 
+               class="w-full pl-9 pr-4 py-2 bg-white rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+      </div>
+    </div>
+
+    <!-- Data Table Container -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-semibold">
+              <th class="py-3.5 px-4">รูปภาพ</th>
+              <th class="py-3.5 px-4">ชื่อสถานที่ / ที่พัก</th>
+              <th class="py-3.5 px-4">ประเภท / โซน</th>
+              <th class="py-3.5 px-4">ราคา</th>
+              <th class="py-3.5 px-4">เบอร์โทร & LINE</th>
+              <th class="py-3.5 px-4">คีย์เวิร์ดบอท LINE</th>
+              <th class="py-3.5 px-4 text-center">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="placesTableBody" class="divide-y divide-slate-100">
+            <!-- Table rows loaded via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      <div id="loadingIndicator" class="p-8 text-center text-slate-400 text-xs">
+        กำลังโหลดข้อมูลจากฐานข้อมูล...
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Modal: Add / Edit Form -->
+  <div id="itemModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 animate-in fade-in duration-200">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-150 mb-6">
+        <div>
+          <h3 id="modalTitle" class="text-lg font-bold text-slate-900">เพิ่มข้อมูลที่พัก / สถานที่ใหม่</h3>
+          <p class="text-xs text-slate-500">ข้อมูลนี้จะถูกส่งไปแสดงผลทั้งบนเว็บและบอทแชท LINE OA</p>
+        </div>
+        <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="placeForm" onsubmit="handleFormSubmit(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="placeId">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">ชื่อภาษาไทย *</label>
+            <input type="text" id="name_th" required placeholder="เช่น สายหมอก แกลมปิ้ง เขาค้อ"
+                   class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">ชื่อภาษาอังกฤษ</label>
+            <input type="text" id="name_en" placeholder="เช่น Saimork Glamping Khao Kho"
+                   class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">ประเภท *</label>
+            <select id="type" required class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+              <option value="stay">🏡 ที่พัก / รีสอร์ท</option>
+              <option value="attraction">🏔️ สถานที่ท่องเที่ยว</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">โซน *</label>
+            <select id="zone" required class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+              <option value="khaokho">โซนเขาค้อ</option>
+              <option value="phuthapbuek">โซนภูทับเบิก</option>
+              <option value="sithep">โซนศรีเทพ (มรดกโลก)</option>
+              <option value="other">โซนอื่นๆ ในเพชรบูรณ์</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">ราคา</label>
+            <input type="text" id="price" placeholder="เช่น เริ่มต้น 1,500 บาท/คืน"
+                   class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">เบอร์โทรติดต่อ</label>
+            <input type="text" id="phone" placeholder="เช่น 081-234-5678"
+                   class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">LINE ID ของที่พัก</label>
+            <input type="text" id="line_id" placeholder="เช่น @saimork_resort"
+                   class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">ที่อยู่พิกัด</label>
+          <input type="text" id="address_th" placeholder="เช่น ต.แคมป์สน อ.เขาค้อ จ.เพชรบูรณ์ 67280"
+                 class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">ลิงก์ Google Maps</label>
+            <input type="url" id="map_url" placeholder="https://maps.google.com/?q=..."
+                   class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">ลิงก์รูปภาพ (Image URL)</label>
+            <input type="url" id="image_url" placeholder="https://images.unsplash.com/..."
+                   class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">คำบรรยายสั้นๆ</label>
+          <textarea id="description_th" rows="2" placeholder="จุดเด่น บรรยากาศ วิวทะเลหมอก..."
+                    class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+        </div>
+
+        <div class="bg-amber-50 p-3.5 rounded-2xl border border-amber-200">
+          <label class="block font-bold text-amber-900 mb-1">🤖 คีย์เวิร์ดสำหรับให้บอทใน LINE ค้นพบ (คั่นด้วยจุลภาค ,)</label>
+          <input type="text" id="keywords" placeholder="เช่น สายหมอก, แกลมปิ้ง, หมูกระทะ, ที่พักเขาค้อ"
+                 class="w-full p-2 rounded-xl border border-amber-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs bg-white">
+          <p class="text-[11px] text-amber-700 mt-1">เวลาคนพิมพ์คำเหล่านี้ในแชท LINE OA บอทจะหยิบที่พักนี้ไปส่งในการ์ดแชททันที!</p>
+        </div>
+
+        <div class="pt-4 border-t border-slate-150 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 font-bold transition">
+            ยกเลิก
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-md transition">
+            บันทึกข้อมูล
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  </div> <!-- End #admin-app -->
+
+  <script>
+    let allPlaces = [];
+    let currentFilter = 'all';
+
+    // Fetch places from Backend API
+    async function fetchPlaces() {
+      try {
+        const res = await fetch('/api/places');
+        const data = await res.json();
+        if (data.success) {
+          allPlaces = data.data;
+          renderTable();
+          updateCounts();
+        }
+      } catch (err) {
+        console.error('Fetch error:', err);
+        document.getElementById('loadingIndicator').innerText = 'เกิดข้อผิดพลาดในการโหลดข้อมูล';
+      }
+    }
+
+    // Render Table
+    function renderTable() {
+      const tbody = document.getElementById('placesTableBody');
+      const search = document.getElementById('searchInput').value.toLowerCase();
+
+      let filtered = allPlaces.filter(p => {
+        const matchType = currentFilter === 'all' || p.type === currentFilter;
+        const matchSearch = !search || 
+          (p.name_th && p.name_th.toLowerCase().includes(search)) ||
+          (p.zone && p.zone.toLowerCase().includes(search)) ||
+          (Array.isArray(p.keywords) && p.keywords.some(k => k.toLowerCase().includes(search)));
+        return matchType && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400">ไม่พบรายการข้อมูล</td></tr>`;
+        document.getElementById('loadingIndicator').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('loadingIndicator').style.display = 'none';
+      tbody.innerHTML = filtered.map(p => {
+        const isStay = p.type === 'stay';
+        const typeBadge = isStay 
+          ? `<span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold text-[10px]">🏡 ที่พัก</span>`
+          : `<span class="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-bold text-[10px]">🏔️ ที่เที่ยว</span>`;
+
+        const kwBadges = Array.isArray(p.keywords) 
+          ? p.keywords.slice(0, 3).map(k => `<span class="inline-block bg-slate-100 px-1.5 py-0.5 rounded text-[10px] text-slate-600 mr-1 mb-1">#${k}</span>`).join('')
+          : '';
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-3 px-4">
+              <img src="${p.image_url || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=100'}" 
+                   class="w-14 h-10 object-cover rounded-lg border border-slate-200">
+            </td>
+            <td class="py-3 px-4">
+              <strong class="text-slate-900 block text-xs">${p.name_th}</strong>
+              <span class="text-[11px] text-slate-400">${p.name_en || '-'}</span>
+            </td>
+            <td class="py-3 px-4">
+              ${typeBadge}
+              <span class="block text-[11px] text-slate-500 mt-1">โซน: ${p.zone}</span>
+            </td>
+            <td class="py-3 px-4 font-bold text-emerald-600">
+              ${p.price || '-'}
+            </td>
+            <td class="py-3 px-4">
+              <span class="block text-slate-700">📞 ${p.phone || '-'}</span>
+              <span class="block text-slate-500 text-[11px]">💬 ${p.line_id || '-'}</span>
+            </td>
+            <td class="py-3 px-4 max-w-xs">
+              ${kwBadges}
+            </td>
+            <td class="py-3 px-4 text-center">
+              <div class="inline-flex items-center gap-1">
+                <button onclick="editPlace('${p.id}')" class="p-1.5 rounded-lg text-blue-600 hover:bg-blue-50 transition" title="แก้ไข">
+                  <i data-lucide="edit-3" class="w-4 h-4"></i>
+                </button>
+                <button onclick="deletePlace('${p.id}', '${p.name_th}')" class="p-1.5 rounded-lg text-red-500 hover:bg-red-50 transition" title="ลบ">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // Update Counts
+    function updateCounts() {
+      document.getElementById('count-all').innerText = allPlaces.length;
+      document.getElementById('count-stay').innerText = allPlaces.filter(p => p.type === 'stay').length;
+      document.getElementById('count-attraction').innerText = allPlaces.filter(p => p.type === 'attraction').length;
+    }
+
+    // Filter Table
+    function filterTable(type) {
+      currentFilter = type;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-slate-900', 'text-white');
+        btn.classList.add('bg-white', 'text-slate-600');
+      });
+      document.getElementById(`tab-${type}`).classList.add('bg-slate-900', 'text-white');
+      document.getElementById(`tab-${type}`).classList.remove('bg-white', 'text-slate-600');
+      renderTable();
+    }
+
+    function handleSearch() {
+      renderTable();
+    }
+
+    // Open Modal
+    function openModal(place = null) {
+      const modal = document.getElementById('itemModal');
+      const form = document.getElementById('placeForm');
+      form.reset();
+
+      if (place) {
+        document.getElementById('modalTitle').innerText = 'แก้ไขข้อมูล: ' + place.name_th;
+        document.getElementById('placeId').value = place.id;
+        document.getElementById('name_th').value = place.name_th || '';
+        document.getElementById('name_en').value = place.name_en || '';
+        document.getElementById('type').value = place.type || 'stay';
+        document.getElementById('zone').value = place.zone || 'khaokho';
+        document.getElementById('price').value = place.price || '';
+        document.getElementById('phone').value = place.phone || '';
+        document.getElementById('line_id').value = place.line_id || '';
+        document.getElementById('address_th').value = place.address_th || '';
+        document.getElementById('map_url').value = place.map_url || '';
+        document.getElementById('image_url').value = place.image_url || '';
+        document.getElementById('description_th').value = place.description_th || '';
+        document.getElementById('keywords').value = Array.isArray(place.keywords) ? place.keywords.join(', ') : (place.keywords || '');
+      } else {
+        document.getElementById('modalTitle').innerText = 'เพิ่มข้อมูลที่พัก / สถานที่ใหม่';
+        document.getElementById('placeId').value = '';
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('itemModal').classList.add('hidden');
+    }
+
+    // Form Submit
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('placeId').value;
+      const payload = {
+        name_th: document.getElementById('name_th').value,
+        name_en: document.getElementById('name_en').value,
+        type: document.getElementById('type').value,
+        zone: document.getElementById('zone').value,
+        price: document.getElementById('price').value,
+        phone: document.getElementById('phone').value,
+        line_id: document.getElementById('line_id').value,
+        address_th: document.getElementById('address_th').value,
+        map_url: document.getElementById('map_url').value,
+        image_url: document.getElementById('image_url').value,
+        description_th: document.getElementById('description_th').value,
+        keywords: document.getElementById('keywords').value
+      };
+
+      try {
+        let res;
+        if (id) {
+          res = await fetch(`/api/places/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          res = await fetch('/api/places', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
+
+        const data = await res.json();
+        if (data.success) {
+          closeModal();
+          await fetchPlaces();
+          alert('บันทึกข้อมูลสำเร็จ! ทั้งหน้าเว็บและ LINE OA ได้รับข้อมูลล่าสุดเรียบร้อยแล้ว');
+        } else {
+          alert('เกิดข้อผิดพลาด: ' + data.message);
+        }
+      } catch (err) {
+        alert('เกิดข้อผิดพลาดในการบันทึก: ' + err.message);
+      }
+    }
+
+    // Edit Place
+    function editPlace(id) {
+      const place = allPlaces.find(p => String(p.id) === String(id));
+      if (place) openModal(place);
+    }
+
+    // Delete Place
+    async function deletePlace(id, name) {
+      if (!confirm(`คุณต้องการลบ "${name}" ออกจากระบบจริงหรือไม่?`)) return;
+
+      try {
+        const res = await fetch(`/api/places/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          await fetchPlaces();
+          alert('ลบข้อมูลเรียบร้อยแล้ว');
+        } else {
+          alert('ลบไม่สำเร็จ: ' + data.message);
+        }
+      } catch (err) {
+        alert('เกิดข้อผิดพลาด: ' + err.message);
+      }
+    }
+
+    // ================= AUTHENTICATION LOGIC =================
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem('phetchabun_admin_auth') === 'true';
+      const loginScreen = document.getElementById('login-screen');
+      const adminApp = document.getElementById('admin-app');
+
+      if (isAuth) {
+        if (loginScreen) loginScreen.classList.add('hidden');
+        if (adminApp) adminApp.classList.remove('hidden');
+        lucide.createIcons();
+        fetchPlaces();
+      } else {
+        if (loginScreen) loginScreen.classList.remove('hidden');
+        if (adminApp) adminApp.classList.add('hidden');
+        lucide.createIcons();
+        setTimeout(() => {
+          const passInput = document.getElementById('login-password');
+          if (passInput) passInput.focus();
+        }, 150);
+      }
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+      const errBox = document.getElementById('login-error');
+      const errMsg = document.getElementById('login-error-msg');
+      const btn = document.getElementById('login-btn');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>กำลังเข้าสู่ระบบ...</span>';
+      if (errBox) errBox.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          sessionStorage.setItem('phetchabun_admin_auth', 'true');
+          checkAuth();
+        } else {
+          if (errMsg) errMsg.textContent = data.message || 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+          if (errBox) errBox.classList.remove('hidden');
+        }
+      } catch (err) {
+        // Fallback for direct browser file open (file://)
+        if (username === 'admin' && (password === 'admin1234' || password === 'admin')) {
+          sessionStorage.setItem('phetchabun_admin_auth', 'true');
+          checkAuth();
+        } else {
+          if (errMsg) errMsg.textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+          if (errBox) errBox.classList.remove('hidden');
+        }
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="log-in" class="w-4 h-4"></i><span>เข้าสู่ระบบ</span>';
+        lucide.createIcons();
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('phetchabun_admin_auth');
+      checkAuth();
+    }
+
+    // Init with auth check
+    checkAuth();
+  </script>
+</body>
+</html>
