@@ -6,6 +6,7 @@ const line = require('@line/bot-sdk');
 
 const db = require('./db');
 const { createPlacesCarousel, createPlaceBubble, createWelcomeMessage } = require('./flexBuilder');
+const { askAI } = require('./aiHelper');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -144,14 +145,25 @@ async function handleLineEvent(event) {
         createPlacesCarousel(searchResults, `ผลการค้นหา ${userText}`)
       ];
     } else {
-      // Fallback response with helpful suggestions
-      replyMessages = [
-        {
-          type: 'text',
-          text: `ขออภัยครับ ไม่พบข้อมูลตรงกับ "${userText}" ในระบบ 😅\n\nคุณสามารถลองพิมพ์:\n• "ที่พักเขาค้อ"\n• "ที่พักภูทับเบิก"\n• "ผาซ่อนแก้ว"\n• "ศรีเทพ"`
-        },
-        createWelcomeMessage()
-      ];
+      // 6. Ask AI (Groq / xAI Grok / Gemini) using Website Database & Phetchabun Knowledge Base
+      const aiReply = await askAI(userText);
+      if (aiReply) {
+        replyMessages = [
+          {
+            type: 'text',
+            text: aiReply
+          }
+        ];
+      } else {
+        // Fallback response if AI is not configured or unavailable
+        replyMessages = [
+          {
+            type: 'text',
+            text: `ขออภัยครับ ไม่พบข้อมูลตรงกับ "${userText}" ในระบบ 😅\n\nคุณสามารถลองพิมพ์:\n• "ที่พักเขาค้อ"\n• "ที่พักภูทับเบิก"\n• "ผาซ่อนแก้ว"\n• "ศรีเทพ"`
+          },
+          createWelcomeMessage()
+        ];
+      }
     }
   }
 
