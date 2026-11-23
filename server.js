@@ -66,6 +66,21 @@ async function handleLineEvent(event) {
   // 1. Check for greetings or menu request
   if (['สวัสดี', 'หวัดดี', 'hello', 'hi', 'เมนู', 'help', 'สอบถาม', 'เริ่ม'].some(g => lowerText.includes(g))) {
     replyMessages = [createWelcomeMessage()];
+  }
+  // 1.5 Check for group members / creators
+  else if (['สมาชิก', 'ผู้จัดทำ', 'ทีมงาน', 'รายชื่อ', 'คนทำ', 'member', 'team', 'creator'].some(k => lowerText.includes(k))) {
+    replyMessages = [
+      {
+        type: 'text',
+        text: `👥 รายชื่อสมาชิกผู้จัดทำระบบ Phetchabun Guide\n\n` +
+              `1. 66038226 กฤติยา พรมแดน\n` +
+              `2. 66066139 ณัฐนันท์ วงศ์เสน่ห์\n` +
+              `3. 66044073 สรวิศ ตรีโชติ\n` +
+              `4. 66014451 ณัฐพล บุราณ\n` +
+              `5. 66050248 ทรงฤทธิ์ คำแก้ว\n\n` +
+              `✨ ขอบคุณที่แวะมาเยี่ยมชมโปรเจกต์ของพวกเราครับ!`
+      }
+    ];
   } 
   // 2. Button A: Website info / Link
   else if (lowerText.includes('เว็บ') || lowerText.includes('เว็บไซต์') || lowerText.includes('website')) {
