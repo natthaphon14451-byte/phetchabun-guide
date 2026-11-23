@@ -56,6 +56,7 @@ async function askAI(userMessage) {
 2. ถ้าถามเรื่องวางแผนเที่ยว อาหาร การเดินทาง หรือสภาพอากาศ ให้ตอบโดยอ้างอิงจาก "คลังข้อมูลความรู้เพิ่มเติม"
 3. ตอบให้กระชับ อ่านจบไวในมือถือ (ประมาณ 3-7 บรรทัด) เว้นบรรทัดให้อ่านง่าย
 4. หากผู้ใช้ถามเป็นภาษาอังกฤษ ให้ตอบเป็นภาษาอังกฤษ
+5. ห้ามใช้รูปแบบ Markdown เช่น **ตัวหนา** หรือ [ชื่อลิงก์](url) ให้พิมพ์เป็นข้อความธรรมดาและวางลิงก์ URL เต็มๆ เพื่อให้กดเปิดในแชท LINE ได้ทันที
 
 === คลังข้อมูลเว็บไซต์ (อัปเดตล่าสุด) ===
 ${placesContext}
@@ -73,7 +74,7 @@ ${PHETCHABUN_KNOWLEDGE}
         : 'https://api.groq.com/openai/v1/chat/completions';
       const model = isXAI
         ? (process.env.GROK_MODEL || 'grok-3-mini')
-        : (process.env.GROQ_MODEL || 'llama-3.3-70b-versatile');
+        : (process.env.GROQ_MODEL || 'openai/gpt-oss-120b');
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -88,7 +89,7 @@ ${PHETCHABUN_KNOWLEDGE}
             { role: 'user', content: userMessage }
           ],
           temperature: 0.7,
-          max_tokens: 500
+          max_tokens: 1500
         })
       });
 
